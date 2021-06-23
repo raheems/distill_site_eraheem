@@ -1,0 +1,26 @@
+name: "Enayetur Raheem"
+title: "Enayetur Raheem"
+description: |
+  statistician, data scientist, educator
+output_dir: "_site"
+base_url: https://eraheem-distill.netlify.app
+
+collections:
+  posts:
+    categories: true
+    categories_metadata: true
+    authors_metadata: true
+    disqus: raheems
+    share: [twitter, linkedin, facebook]
+    subscribe: _subscribe.html
+    
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+  search: true
+theme: theme.css
+
+output: distill::distill_article
