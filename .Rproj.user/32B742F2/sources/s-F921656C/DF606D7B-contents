@@ -14,7 +14,7 @@ output:
     highlight: default
     toc: true
     citation: true
-preview: images/missing.jpg
+preview: https://eraheem-distill.netlify.app/images/missing.jpg
 rss:
   full_content: true
   categories:

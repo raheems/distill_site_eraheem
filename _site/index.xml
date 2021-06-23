@@ -15,6 +15,7 @@
       <description>SAS and R handles missing values differently. R's handling of issing value is somewhat intuitive. For SAS, it treats missing value as the smallest value in the column.</description>
       <guid>https://eraheem-distill.netlify.app/posts/2021-06-19-how-na-affects-your-analysis</guid>
       <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://eraheem-distill.netlify.app/images/missing.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
       <title>Welcome to My Blog</title>
