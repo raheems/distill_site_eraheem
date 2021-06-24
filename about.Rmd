@@ -11,4 +11,4 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-I am a Real World Evidence (RWE) Data Scientist and Statistician with more than 18 years of experience in academia and industry combined. Currently, as a Principal Data Scientist at ConcertAI, I provide strategic guidance for the use of real world data, their validations, and use of algorithms to derive real world evidence (RWE) for evaluation of drugs and biologics.
+I am a Real World Evidence (RWE) Data Scientist and Statistician with more than 18 years of experience in academia and industry combined. Currently, as a Principal Data Scientist, I provide strategic guidance for the use of real world data, their validations, and use of algorithms to derive real world evidence (RWE) for evaluation of drugs and biologics.

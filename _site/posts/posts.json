@@ -14,7 +14,7 @@
     "contents": "\nIf you are a statistician And use our and sass software in your workflow then you probably have encountered this particular issue that I’m going to talk about. It’s about how missing values are in their values are handled differently in these two software systems.\nTo me how R Handles missing values is intuitive. However if you often if you do not use are if you do not use as frequently but only use it to Raleigh then you need to be very careful about how sassy handles missing values.\nWill be best if I show you an example.\nLet’s create a fake data set.\n\n\ndf = data.frame(name= c(\"John\", \"Rumi\", \"Samia\"),\n                age = c(30, 20, NA))\ndf\n\n\n   name age\n1  John  30\n2  Rumi  20\n3 Samia  NA\n\nLet’s create a new variable based on condition unavailable that has a missing value.\n\n\ndf %>% \n  mutate(\n    age_under_20_flag = case_when(\n      age <= 20 ~ 1,\n      TRUE ~ 0\n    ),\n    \n    age_under_20_flag_ifelse = if_else(age <= 20, 1, 0)\n  )\n\n\n   name age age_under_20_flag age_under_20_flag_ifelse\n1  John  30                 0                        0\n2  Rumi  20                 1                        1\n3 Samia  NA                 0                       NA\n\nLet’s see how it does and SAS.\n/* test data set to demonstrate how SAS handles missing values */\n\ndata df;\ninput name $ age;\ncards;\nJohn 30\nRumi 20\nSamia .\n;\nrun;\n\nNow lets create the same flag if age equal or below 20\ndata df2;\n  set df;\n  if age <= 20 then age_under_20_flag = 1;\n  else age_under_20_flag = 0;\nrun;\n\nNow notice how SAS handled the missing value. SAS considers missing value as the smallest value in your column. Thus you really have to handle missing value separately, in this case, prior to applying the if\n\n\n\n\n\n\n\n",
     "preview": "https://eraheem-distill.netlify.app/images/missing.jpg",
     "last_modified": "2021-06-23T15:16:17-04:00",
-    "input_file": "how-na-affects-your-analysis-differently-r-sas.knit.md"
+    "input_file": {}
   },
   {
     "path": "posts/welcome/",
@@ -31,6 +31,6 @@
     "contents": "\n\n\n\n",
     "preview": {},
     "last_modified": "2021-06-23T15:17:34-04:00",
-    "input_file": "welcome.knit.md"
+    "input_file": {}
   }
 ]
