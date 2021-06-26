@@ -18,7 +18,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 ```{r, preview = TRUE}
-knitr::include_graphics(here::here("images/book_review_regression_sas_r.jpeg"))
+knitr::include_graphics("book_review_regression_sas_r.jpeg")
 ```
 
 
