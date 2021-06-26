@@ -1,6 +1,6 @@
 ---
-title: "How NA affects your analysis differently in R vs SAS"
-slug: how-na-affects-analysis-differently-in-r-vs-sas
+title: "How NA affects your analysis in R"
+slug: how-na-affects-analysis-in-r
 description: |
   SAS and R handles missing values differently. R's handling of issing value is somewhat intuitive. For SAS, it treats missing value as the smallest value in the column.
 author:
@@ -14,13 +14,13 @@ output:
     highlight: default
     toc: true
     citation: true
-preview: https://eraheem-distill.netlify.app/images/missing.jpg
-rss:
-  full_content: true
-  categories:
-    - R
-    - Python
-    - Data analysis
+preview: https://eraheem-distill.netlify.app/images/missing.svg
+categories:
+  - R
+  - SAS
+  - Data analysis
+  - Missing value
+  
 ---
 
 
@@ -28,12 +28,19 @@ rss:
 knitr::opts_chunk$set(echo = FALSE)
 library(distill)
 library(tidyverse)
-# rename_post_dir("_posts/2021-06-19-poststestname")
+# rename_post_dir("_posts/2021-06-19-how-na-affects-your-analysis")
 ```
 
-If you are a statistician And use our and sass software in your workflow then you probably have encountered this particular issue that I'm going to talk about. It's about how missing values are in their values are handled differently in these two software systems. 
+If you are a statistician or work with researchers, chances are you often use both R and SAS depending on the project's need. 
 
-To me how R Handles missing values is intuitive. However if you often if you do not use are if you do not use as frequently but only use it to Raleigh then you need to be very careful about how sassy handles missing values. 
+It happened with me once when I was switching from R to SAS to quickly create a report for a stakeholder. R being my primary tool for most of data science work, I got carried away and made some silly errors when I presented the data summary. The issue I fould later was due to how SAS handles missing values differently than R. 
+R's handling of NA or missing value is quite intuitive that it will ignore the values with NA silently in most functions. So unless you care about counting the missing cases for reporting purposes, R silently excludes missing.
+
+> However, SAS treats missing values as the smallest value in the colum, and does not ignore it. 
+
+This is crucial. I will demonstrate how crucial it is and how it will affect your analysis.
+
+## R and SAS handle missing values differently
 
 Will be best if I show you an example. 
 
@@ -89,6 +96,12 @@ run;
 Now notice how SAS handled the missing value. SAS considers missing value as the smallest value in your column. Thus you really have to handle missing value separately, in this case, prior to applying the if
 
 ![](sas_na_handling.png)
+
+## How R handles NA
+
+## How SAS handles NA
+
+
 
 
 ```{r, fig.align='center', out.width='120%'}

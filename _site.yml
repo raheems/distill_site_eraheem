@@ -24,5 +24,9 @@ navbar:
       href: index.xml
   search: true
 theme: theme.css
-
+rss:
+  full_content: true
+  categories:
+    - oncology
+    
 output: distill::distill_article
