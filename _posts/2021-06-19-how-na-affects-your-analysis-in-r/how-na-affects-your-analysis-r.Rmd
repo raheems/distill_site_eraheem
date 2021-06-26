@@ -14,7 +14,7 @@ output:
     highlight: default
     toc: true
     citation: true
-preview: https://eraheem-distill.netlify.app/images/missing.svg
+preview: https://eraheem-distill.netlify.app/images/missing.jpg
 categories:
   - R
   - SAS

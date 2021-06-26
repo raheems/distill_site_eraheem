@@ -12,14 +12,71 @@
       <title>How NA affects your analysis in R</title>
       <dc:creator>Enayetur Raheem</dc:creator>
       <link>https://eraheem-distill.netlify.app/posts/2021-06-19-how-na-affects-your-analysis-in-r</link>
-      <description>SAS and R handles missing values differently. R's handling of issing value is somewhat intuitive. For SAS, it treats missing value as the smallest value in the column.</description>
+      <description>
+
+
+&lt;p&gt;If you are a statistician or work with researchers, chances are you often use both R and SAS depending on the project’s need.&lt;/p&gt;
+&lt;p&gt;It happened with me once when I was switching from R to SAS to quickly create a report for a stakeholder. R being my primary tool for most of data science work, I got carried away and made some silly errors when I presented the data summary. The issue I fould later was due to how SAS handles missing values differently than R. R’s handling of NA or missing value is quite intuitive that it will ignore the values with NA silently in most functions. So unless you care about counting the missing cases for reporting purposes, R silently excludes missing.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;However, SAS treats missing values as the smallest value in the colum, and does not ignore it.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This is crucial. I will demonstrate how crucial it is and how it will affect your analysis.&lt;/p&gt;
+&lt;h2 id="r-and-sas-handle-missing-values-differently"&gt;R and SAS handle missing values differently&lt;/h2&gt;
+&lt;p&gt;Will be best if I show you an example.&lt;/p&gt;
+&lt;p&gt;Let’s create a fake data set.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;df = data.frame(name= c(&amp;quot;John&amp;quot;, &amp;quot;Rumi&amp;quot;, &amp;quot;Samia&amp;quot;),
+                age = c(30, 20, NA))
+df&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;   name age
+1  John  30
+2  Rumi  20
+3 Samia  NA&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s create a new variable based on condition unavailable that has a missing value.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;df %&amp;gt;% 
+  mutate(
+    age_under_20_flag = case_when(
+      age &amp;lt;= 20 ~ 1,
+      TRUE ~ 0
+    ),
+    
+    age_under_20_flag_ifelse = if_else(age &amp;lt;= 20, 1, 0)
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;   name age age_under_20_flag age_under_20_flag_ifelse
+1  John  30                 0                        0
+2  Rumi  20                 1                        1
+3 Samia  NA                 0                       NA&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s see how it does and SAS.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/* test data set to demonstrate how SAS handles missing values */
+
+data df;
+input name $ age;
+cards;
+John 30
+Rumi 20
+Samia .
+;
+run;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now lets create the same flag if age equal or below 20&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data df2;
+  set df;
+  if age &amp;lt;= 20 then age_under_20_flag = 1;
+  else age_under_20_flag = 0;
+run;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now notice how SAS handled the missing value. SAS considers missing value as the smallest value in your column. Thus you really have to handle missing value separately, in this case, prior to applying the if&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://eraheem-distill.netlify.app/posts/2021-06-19-how-na-affects-your-analysis-in-r/sas_na_handling.png" /&gt;&lt;/p&gt;
+&lt;h2 id="how-r-handles-na"&gt;How R handles NA&lt;/h2&gt;
+&lt;h2 id="how-sas-handles-na"&gt;How SAS handles NA&lt;/h2&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>d04d4e310381a3da38b6600758239ad1</distill:md5>
       <category>R</category>
       <category>SAS</category>
       <category>Data analysis</category>
       <category>Missing value</category>
       <guid>https://eraheem-distill.netlify.app/posts/2021-06-19-how-na-affects-your-analysis-in-r</guid>
       <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://eraheem-distill.netlify.app/images/missing.svg" medium="image" type="image/svg+xml"/>
+      <media:content url="https://eraheem-distill.netlify.app/images/missing.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
       <title>Welcome to My Blog</title>
