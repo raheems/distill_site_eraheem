@@ -12,64 +12,7 @@
       <title>How NA affects your analysis in R</title>
       <dc:creator>Enayetur Raheem</dc:creator>
       <link>https://eraheem-distill.netlify.app/posts/2021-06-19-how-na-affects-your-analysis-in-r</link>
-      <description>
-
-
-&lt;p&gt;If you are a statistician or work with researchers, chances are you often use both R and SAS depending on the project’s need.&lt;/p&gt;
-&lt;p&gt;It happened with me once when I was switching from R to SAS to quickly create a report for a stakeholder. R being my primary tool for most of data science work, I got carried away and made some silly errors when I presented the data summary. The issue I fould later was due to how SAS handles missing values differently than R. R’s handling of NA or missing value is quite intuitive that it will ignore the values with NA silently in most functions. So unless you care about counting the missing cases for reporting purposes, R silently excludes missing.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;However, SAS treats missing values as the smallest value in the colum, and does not ignore it.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;This is crucial. I will demonstrate how crucial it is and how it will affect your analysis.&lt;/p&gt;
-&lt;h2 id="r-and-sas-handle-missing-values-differently"&gt;R and SAS handle missing values differently&lt;/h2&gt;
-&lt;p&gt;Will be best if I show you an example.&lt;/p&gt;
-&lt;p&gt;Let’s create a fake data set.&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;df = data.frame(name= c(&amp;quot;John&amp;quot;, &amp;quot;Rumi&amp;quot;, &amp;quot;Samia&amp;quot;),
-                age = c(30, 20, NA))
-df&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;   name age
-1  John  30
-2  Rumi  20
-3 Samia  NA&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Let’s create a new variable based on condition unavailable that has a missing value.&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;df %&amp;gt;% 
-  mutate(
-    age_under_20_flag = case_when(
-      age &amp;lt;= 20 ~ 1,
-      TRUE ~ 0
-    ),
-    
-    age_under_20_flag_ifelse = if_else(age &amp;lt;= 20, 1, 0)
-  )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;   name age age_under_20_flag age_under_20_flag_ifelse
-1  John  30                 0                        0
-2  Rumi  20                 1                        1
-3 Samia  NA                 0                       NA&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Let’s see how it does and SAS.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/* test data set to demonstrate how SAS handles missing values */
-
-data df;
-input name $ age;
-cards;
-John 30
-Rumi 20
-Samia .
-;
-run;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now lets create the same flag if age equal or below 20&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;data df2;
-  set df;
-  if age &amp;lt;= 20 then age_under_20_flag = 1;
-  else age_under_20_flag = 0;
-run;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now notice how SAS handled the missing value. SAS considers missing value as the smallest value in your column. Thus you really have to handle missing value separately, in this case, prior to applying the if&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://eraheem-distill.netlify.app/posts/2021-06-19-how-na-affects-your-analysis-in-r/sas_na_handling.png" /&gt;&lt;/p&gt;
-&lt;h2 id="how-r-handles-na"&gt;How R handles NA&lt;/h2&gt;
-&lt;h2 id="how-sas-handles-na"&gt;How SAS handles NA&lt;/h2&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5>d04d4e310381a3da38b6600758239ad1</distill:md5>
+      <description>SAS and R handles missing values differently. R's handling of issing value is somewhat intuitive. For SAS, it treats missing value as the smallest value in the column.</description>
       <category>R</category>
       <category>SAS</category>
       <category>Data analysis</category>
@@ -79,13 +22,35 @@ run;
       <media:content url="https://eraheem-distill.netlify.app/images/missing.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
-      <title>Welcome to My Blog</title>
+      <title>A review of Advanced Regression Models with SAS and R</title>
       <dc:creator>Enayetur Raheem</dc:creator>
-      <link>https://eraheem-distill.netlify.app/posts/welcome</link>
-      <description>Welcome to our new blog, My Blog. We hope you enjoy 
-reading what we have to say!</description>
-      <guid>https://eraheem-distill.netlify.app/posts/welcome</guid>
-      <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
+      <link>https://eraheem-distill.netlify.app/posts/2020-11-22-advanced-regression-models-with-sas-and-r</link>
+      <description>
+
+
+&lt;p&gt;&lt;img src="/Users/eraheem/Google%20Drive/git/distill_blog/images/book_review_regression_sas_r.jpeg" data-distill-preview=1 /&gt;&lt;/p&gt;
+&lt;p&gt;Title: Advanced Regression Models with SAS and R&lt;/p&gt;
+&lt;p&gt;By Olga Korosteleva&lt;/p&gt;
+&lt;p&gt;CRC Press, 2019&lt;/p&gt;
+&lt;p&gt;Pages: xiii + 310&lt;/p&gt;
+&lt;p&gt;This book can be summarized as a cookbook of various types of regression models and their implementations with SAS and R statistical software. The chapters follow a specific pattern on the presentation starting with a brief introduction to the theory behind the technique, followed by the SAS and R implementations.&lt;/p&gt;
+&lt;p&gt;The theory is not detailed, but anyone with some mathematical statistics background will be able to review them quickly and understand them sufficiently to appreciate them as they are applied to solve practical problems.&lt;/p&gt;
+&lt;p&gt;Then a real data use case is presented and solved with SAS and R.&lt;/p&gt;
+&lt;p&gt;The SAS portion is covered with discussion while the same is implemented in R without further discussion. That is to say, anyone wanting to follow the R portion only would still be benefited to review the SAS implementations for added discussions.&lt;/p&gt;
+&lt;p&gt;At the end of each chapter, there are exercise problems that interested readers and students would find useful.&lt;/p&gt;
+&lt;p&gt;The book has a companion website with all the data in CSV format. A solution manual to the exercise problems is available for instructors.&lt;/p&gt;
+&lt;p&gt;The book starts with an introduction to the general and generalized linear regression. Then it presents the regression model for responses within the right-skewed distribution. Here the box Cox power transformation is discussed. Important regression models discussed here are the gamma model.&lt;/p&gt;
+&lt;p&gt;Then regression models for binary response are discussed in chapter 3. The binary response models discussed include logistic regression, probit regression, and complementary log log model. Particularly useful discussion includes the situations where these models can be applied. The discussions are to the point with useful details. Then the regression models for categorical responses are presented. Also presented are the regression models for count responses, including Poisson models, zero-inflated, zero-truncated, and Hurdle Poisson models, a generalized linear regression model for repeated measures data, and hierarchical regression models.&lt;/p&gt;
+&lt;p&gt;In summary, the book is a useful reference for practitioners who frequently apply regression techniques to their data. Even for seasoned statisticians, this book is convenient. It can serve as a quick reference on how to do a particular regression model along with SAS and R codes. It is especially useful for R users who will find all the various packages needed for these regression models.&lt;/p&gt;
+&lt;p&gt;Although the book covers model fitting and interpretation of estimated regression parameters, model building and variable selection are not covered due to space constraints. Also, not covered are model diagnostics.&lt;/p&gt;
+&lt;p&gt;This book is unique in the sense that it provides recipes for almost all types of regression models. The author intelligently avoided much about the theory but did not ignore them altogether. The theory is presented at a minimum level and in an amount that is necessary for those interested. However, they can be totally skipped, and someone interested only in the implementations would find this book a convenient reference.&lt;/p&gt;
+&lt;h3 id="acknowledgements"&gt;Acknowledgements&lt;/h3&gt;
+&lt;p&gt;I want to thank the CRC publisher and the International Society for Clinical Biostatistics for arranging a copy of the book for review.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>f0a64ff576ea1dc35c46c72492771ec7</distill:md5>
+      <category>Book review</category>
+      <guid>https://eraheem-distill.netlify.app/posts/2020-11-22-advanced-regression-models-with-sas-and-r</guid>
+      <pubDate>Sun, 22 Nov 2020 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>

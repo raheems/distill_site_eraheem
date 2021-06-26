@@ -18,24 +18,26 @@
     ],
     "contents": "\n\nContents\nR and SAS handle missing values differently\nHow R handles NA\nHow SAS handles NA\n\nIf you are a statistician or work with researchers, chances are you often use both R and SAS depending on the project’s need.\nIt happened with me once when I was switching from R to SAS to quickly create a report for a stakeholder. R being my primary tool for most of data science work, I got carried away and made some silly errors when I presented the data summary. The issue I fould later was due to how SAS handles missing values differently than R. R’s handling of NA or missing value is quite intuitive that it will ignore the values with NA silently in most functions. So unless you care about counting the missing cases for reporting purposes, R silently excludes missing.\n\nHowever, SAS treats missing values as the smallest value in the colum, and does not ignore it.\n\nThis is crucial. I will demonstrate how crucial it is and how it will affect your analysis.\nR and SAS handle missing values differently\nWill be best if I show you an example.\nLet’s create a fake data set.\n\n\ndf = data.frame(name= c(\"John\", \"Rumi\", \"Samia\"),\n                age = c(30, 20, NA))\ndf\n\n\n   name age\n1  John  30\n2  Rumi  20\n3 Samia  NA\n\nLet’s create a new variable based on condition unavailable that has a missing value.\n\n\ndf %>% \n  mutate(\n    age_under_20_flag = case_when(\n      age <= 20 ~ 1,\n      TRUE ~ 0\n    ),\n    \n    age_under_20_flag_ifelse = if_else(age <= 20, 1, 0)\n  )\n\n\n   name age age_under_20_flag age_under_20_flag_ifelse\n1  John  30                 0                        0\n2  Rumi  20                 1                        1\n3 Samia  NA                 0                       NA\n\nLet’s see how it does and SAS.\n/* test data set to demonstrate how SAS handles missing values */\n\ndata df;\ninput name $ age;\ncards;\nJohn 30\nRumi 20\nSamia .\n;\nrun;\n\nNow lets create the same flag if age equal or below 20\ndata df2;\n  set df;\n  if age <= 20 then age_under_20_flag = 1;\n  else age_under_20_flag = 0;\nrun;\n\nNow notice how SAS handled the missing value. SAS considers missing value as the smallest value in your column. Thus you really have to handle missing value separately, in this case, prior to applying the if\n\nHow R handles NA\nHow SAS handles NA\n\n\n\n\n\n\n",
     "preview": "https://eraheem-distill.netlify.app/images/missing.jpg",
-    "last_modified": "2021-06-25T21:43:25-04:00",
-    "input_file": "how-na-affects-your-analysis-r.knit.md"
+    "last_modified": "2021-06-25T21:49:30-04:00",
+    "input_file": {}
   },
   {
-    "path": "posts/welcome/",
-    "title": "Welcome to My Blog",
-    "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
+    "path": "posts/2020-11-22-advanced-regression-models-with-sas-and-r/",
+    "title": "A review of Advanced Regression Models with SAS and R",
+    "description": "A short description of the post.",
     "author": [
       {
         "name": "Enayetur Raheem",
-        "url": "https://example.com/norajones"
+        "url": {}
       }
     ],
-    "date": "2021-06-17",
-    "categories": [],
-    "contents": "\n\n\n\n",
+    "date": "2020-11-22",
+    "categories": [
+      "Book review"
+    ],
+    "contents": "\n\n\n\nTitle: Advanced Regression Models with SAS and R\nBy Olga Korosteleva\nCRC Press, 2019\nPages: xiii + 310\nThis book can be summarized as a cookbook of various types of regression models and their implementations with SAS and R statistical software. The chapters follow a specific pattern on the presentation starting with a brief introduction to the theory behind the technique, followed by the SAS and R implementations.\nThe theory is not detailed, but anyone with some mathematical statistics background will be able to review them quickly and understand them sufficiently to appreciate them as they are applied to solve practical problems.\nThen a real data use case is presented and solved with SAS and R.\nThe SAS portion is covered with discussion while the same is implemented in R without further discussion. That is to say, anyone wanting to follow the R portion only would still be benefited to review the SAS implementations for added discussions.\nAt the end of each chapter, there are exercise problems that interested readers and students would find useful.\nThe book has a companion website with all the data in CSV format. A solution manual to the exercise problems is available for instructors.\nThe book starts with an introduction to the general and generalized linear regression. Then it presents the regression model for responses within the right-skewed distribution. Here the box Cox power transformation is discussed. Important regression models discussed here are the gamma model.\nThen regression models for binary response are discussed in chapter 3. The binary response models discussed include logistic regression, probit regression, and complementary log log model. Particularly useful discussion includes the situations where these models can be applied. The discussions are to the point with useful details. Then the regression models for categorical responses are presented. Also presented are the regression models for count responses, including Poisson models, zero-inflated, zero-truncated, and Hurdle Poisson models, a generalized linear regression model for repeated measures data, and hierarchical regression models.\nIn summary, the book is a useful reference for practitioners who frequently apply regression techniques to their data. Even for seasoned statisticians, this book is convenient. It can serve as a quick reference on how to do a particular regression model along with SAS and R codes. It is especially useful for R users who will find all the various packages needed for these regression models.\nAlthough the book covers model fitting and interpretation of estimated regression parameters, model building and variable selection are not covered due to space constraints. Also, not covered are model diagnostics.\nThis book is unique in the sense that it provides recipes for almost all types of regression models. The author intelligently avoided much about the theory but did not ignore them altogether. The theory is presented at a minimum level and in an amount that is necessary for those interested. However, they can be totally skipped, and someone interested only in the implementations would find this book a convenient reference.\nAcknowledgements\nI want to thank the CRC publisher and the International Society for Clinical Biostatistics for arranging a copy of the book for review.\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-06-23T15:17:34-04:00",
-    "input_file": {}
+    "last_modified": "2021-06-25T21:58:33-04:00",
+    "input_file": "advanced-regression-models-with-sas-and-r.knit.md"
   }
 ]
